@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
-  <title>Convert IPA phonetic notation text to speech</title>
+  <title>Convert IPA notation to Phoneme notation to speech</title>
   <meta name="description" content="A browser-based tool to convert International Phonetic Alphabet (IPA) phonetic notation to speech using the meSpeak.js package.">
 
   <style type="text/css">
@@ -262,7 +262,12 @@
         //console.log(mappings[i].src + uipa);
       }
       console.log(uipa);
+
+      let phoneme_input = document.getElementById("phoneme-input");
+      phoneme_input.value = `[[${uipa}]]`;
+
       spoken = meSpeak.speak('[['+uipa+']]', { 'rawdata': 'mime' });
+
       if (spoken == null) {
         alert("An error occurred: speaking failed.");
       }
@@ -279,6 +284,7 @@
     <form onsubmit="process(); return false;">
       <input id="ipa-input" onchange="clear_download_button(); return false;" type="text" value="/mʊmˈbaɪ/" />
       <input id="submit" onclick="process(); return false;" type="button" value="pronounce" />
+      <input id="phoneme-input" type="text" value="" placeholder="eSpeak phoneme notaion" disabled/>
       <input id="download-button" onclick="download(); return false;" type="button" disabled="disabled" value="download pronunciation" />
       <input id="copy-link-button" onclick="copy_link_button(); return false;" type="button" value="copy share url" />
     </form>
